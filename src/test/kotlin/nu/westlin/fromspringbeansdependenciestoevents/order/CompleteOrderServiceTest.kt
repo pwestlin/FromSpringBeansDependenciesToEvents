@@ -1,5 +1,7 @@
-package nu.westlin.fromspringbeansdependenciestoevents
+package nu.westlin.fromspringbeansdependenciestoevents.order
 
+import nu.westlin.fromspringbeansdependenciestoevents.common.domain.Order
+import nu.westlin.fromspringbeansdependenciestoevents.common.event.OrderCompletedEvent
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
