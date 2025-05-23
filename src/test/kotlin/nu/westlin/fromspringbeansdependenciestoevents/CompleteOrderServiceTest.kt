@@ -7,12 +7,13 @@ import nu.westlin.fromspringbeansdependenciestoevents.domain.Order
 import nu.westlin.fromspringbeansdependenciestoevents.inventory.InventoryService
 import nu.westlin.fromspringbeansdependenciestoevents.notification.NotificationsService
 import nu.westlin.fromspringbeansdependenciestoevents.order.CompleteOrderService
+import nu.westlin.fromspringbeansdependenciestoevents.order.OrderRepository
 import nu.westlin.fromspringbeansdependenciestoevents.reward.RewardsService
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+@SpringBootTest(classes = [CompleteOrderService::class, OrderRepository::class])
 class CompleteOrderServiceTest(
     @Autowired private val service: CompleteOrderService
 ) {
