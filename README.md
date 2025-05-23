@@ -1,0 +1,1 @@
+# From Spring beans dependencies to application events
