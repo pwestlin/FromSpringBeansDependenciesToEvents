@@ -5,6 +5,7 @@ import nu.westlin.fromspringbeansdependenciestoevents.common.event.OrderComplete
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
+import org.springframework.jdbc.core.simple.JdbcClient
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -26,8 +27,26 @@ class CompleteOrderService(
 }
 
 @Repository
-class OrderRepository {
+class OrderRepository(
+    private val jdbcClient: JdbcClient
+) {
+    fun save(order: Order) {
+        val rows = jdbcClient
+            .sql("insert into orders(id,data) values (:id, :data)")
+            .param("id", order.id)
+            .param("data", order.data)
+            .update()
+        check(rows == 1) { "1 row should've affected but $rows were" }
+    }
 
-    @Transactional
-    fun save(order: Order) {}
+    fun getOrder(id: Long): Order? {
+        return jdbcClient
+            .sql("select * from orders where id = :id")
+            .param("id", id)
+            .query { rs, rowNum ->
+                Order(id = rs.getLong("id"), data = rs.getString("data"))
+            }
+            .optional()
+            .orElse(null)
+    }
 }
