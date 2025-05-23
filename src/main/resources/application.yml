@@ -1,4 +1,21 @@
-spring.application.name: FromSpringBeansDependenciesToEvents
+spring:
+  application.name: FromSpringBeansDependenciesToEvents
+
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydatabase
+    username: myuser
+    password: mysecret
+    driver-class-name: org.postgresql.Driver
+
+  sql:
+    init:
+      mode: always
+      platform: postgres
+
+  docker:
+    compose:
+      lifecycle-management: start_only
 
 logging:
   level:
