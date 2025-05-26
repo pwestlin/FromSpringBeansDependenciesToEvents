@@ -1,7 +1,7 @@
 package nu.westlin.fromspringbeansdependenciestoevents.inventory
 
-import nu.westlin.fromspringbeansdependenciestoevents.common.domain.Order
-import nu.westlin.fromspringbeansdependenciestoevents.common.event.OrderCompletedEvent
+import nu.westlin.fromspringbeansdependenciestoevents.order.Order
+import nu.westlin.fromspringbeansdependenciestoevents.common.OrderCompletedEvent
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.event.EventListener
@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class InventoryService {
 
-    private fun updateStock(order: Order) {
-        logger.info("Updating stock rewards for ${order.id}")
+    private fun updateStock(orderId: Long) {
+        logger.info("Updating stock rewards for $orderId")
     }
 
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -21,7 +21,7 @@ class InventoryService {
     @Transactional
     fun handleOrderCompletedEvent(event: OrderCompletedEvent) {
         logger.info("Handling $event")
-        updateStock(event.order)
+        updateStock(event.orderId)
     }
 }
 

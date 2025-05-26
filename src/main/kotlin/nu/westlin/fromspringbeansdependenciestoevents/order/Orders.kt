@@ -1,7 +1,6 @@
 package nu.westlin.fromspringbeansdependenciestoevents.order
 
-import nu.westlin.fromspringbeansdependenciestoevents.common.domain.Order
-import nu.westlin.fromspringbeansdependenciestoevents.common.event.OrderCompletedEvent
+import nu.westlin.fromspringbeansdependenciestoevents.common.OrderCompletedEvent
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
@@ -18,9 +17,9 @@ class CompleteOrderService(
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
     @Transactional
-    fun completeOrder(order: Order) {
+    fun completeOrder(order: Order, userId: Long) {
         orderRepository.save(order)
-        eventPublisher.publishEvent(OrderCompletedEvent(order))
+        eventPublisher.publishEvent(OrderCompletedEvent(orderId = order.id, userId = userId))
 
         logger.info("Order completed successfully")
     }

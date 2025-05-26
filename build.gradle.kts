@@ -19,18 +19,28 @@ repositories {
     mavenCentral()
 }
 
+extra["springModulithVersion"] = "1.3.5"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.modulith:spring-modulith-starter-core")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.modulith:spring-modulith-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("com.ninja-squad:springmockk:4.0.2")
+}
+
+dependencyManagement {
+  imports {
+    mavenBom("org.springframework.modulith:spring-modulith-bom:${property("springModulithVersion")}")
+  }
 }
 
 kotlin {

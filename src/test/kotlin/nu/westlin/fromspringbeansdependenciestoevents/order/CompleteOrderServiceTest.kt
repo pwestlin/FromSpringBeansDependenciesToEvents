@@ -1,13 +1,11 @@
 package nu.westlin.fromspringbeansdependenciestoevents.order
 
-import nu.westlin.fromspringbeansdependenciestoevents.common.domain.Order
-import nu.westlin.fromspringbeansdependenciestoevents.common.event.OrderCompletedEvent
+import nu.westlin.fromspringbeansdependenciestoevents.common.OrderCompletedEvent
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
@@ -48,11 +46,11 @@ class CompleteOrderServiceTest(
     @Test
     fun `complete order`(applicationEvents: ApplicationEvents) {
         val order = Order(id = 42, data = "foo")
-
-        service.completeOrder(order)
+        val userId = 11L
+        service.completeOrder(order = order, userId)
 
         assertThat(orderRepository.getOrder(order.id)).isEqualTo(order)
-        assertThat(applicationEvents.list<OrderCompletedEvent>()).containsExactly(OrderCompletedEvent(order = order))
+        assertThat(applicationEvents.list<OrderCompletedEvent>()).containsExactly(OrderCompletedEvent(orderId = order.id, userId = userId))
     }
 }
 

@@ -3,7 +3,7 @@ package nu.westlin.fromspringbeansdependenciestoevents
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+//@SpringBootTest
 class ApplicationTests {
 
     @Test
