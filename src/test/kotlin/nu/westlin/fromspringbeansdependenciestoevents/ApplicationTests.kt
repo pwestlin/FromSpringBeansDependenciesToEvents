@@ -2,12 +2,14 @@ package nu.westlin.fromspringbeansdependenciestoevents
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.annotation.Import
 
-//@SpringBootTest
+@SpringBootTest
+@Import(TestPostgresContainerConfig::class)
 class ApplicationTests {
 
     @Test
     fun contextLoads() {
     }
-
 }
+

@@ -37,6 +37,11 @@ dependencies {
     testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
+// Dö Mockito, dö! :)
+configurations.all {
+    exclude(group = "org.mockito", module = "mockito-core")
+}
+
 dependencyManagement {
   imports {
     mavenBom("org.springframework.modulith:spring-modulith-bom:${property("springModulithVersion")}")
