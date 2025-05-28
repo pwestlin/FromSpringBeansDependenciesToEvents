@@ -19,7 +19,7 @@ repositories {
     mavenCentral()
 }
 
-extra["springModulithVersion"] = "1.3.5"
+extra["springModulithVersion"] = "1.4.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
