@@ -31,10 +31,7 @@ class NotificationModuleTests(
 
         // Vänta på att systemet hamnar i ett viss tillstånd
         scenarioResult
-            .andWaitForStateChange(
-                { notificationsRepository.getNotificationsByOrderId(event.orderId) },
-                { it.size == 1 }
-            )
+            .andWaitForStateChange { notificationsRepository.getNotificationsByOrderId(event.orderId) }
             // Verifiera
             .andVerify { notifications ->
                 assertThat(notifications).containsExactly(
