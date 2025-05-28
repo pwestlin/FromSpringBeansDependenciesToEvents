@@ -10,6 +10,7 @@ class ApplicationTests {
 
     @Test
     fun contextLoads() {
+        // Foo
     }
 }
 

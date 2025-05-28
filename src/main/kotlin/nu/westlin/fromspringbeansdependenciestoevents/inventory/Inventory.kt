@@ -1,6 +1,5 @@
 package nu.westlin.fromspringbeansdependenciestoevents.inventory
 
-import nu.westlin.fromspringbeansdependenciestoevents.order.Order
 import nu.westlin.fromspringbeansdependenciestoevents.common.OrderCompletedEvent
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

@@ -1,7 +1,6 @@
 package nu.westlin.fromspringbeansdependenciestoevents
 
 import org.testcontainers.containers.PostgreSQLContainer
-import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.images.PullPolicy
 import org.testcontainers.utility.DockerImageName
 import org.testcontainers.utility.TestcontainersConfiguration
@@ -17,14 +16,13 @@ object PostgresContainer {
         TestcontainersConfiguration.getInstance().updateUserConfig("testcontainers.reuse.enable", reuse.toString())
 
         return PostgreSQLContainer(
-            DockerImageName.parse("docker.lmv.lm.se/taco/postgres:16").asCompatibleSubstituteFor("postgres")
+            DockerImageName.parse("postgres:16-alpine")
         ).apply {
             withImagePullPolicy(PullPolicy.alwaysPull())
-            withDatabaseName("ditax_stad")
-            withUsername("skrutt")
-            withPassword("skrutt")
+            withDatabaseName("mydb")
+            withUsername("myuser")
+            withPassword("mypassword")
             withReuse(reuse)
-            waitingFor(Wait.forLogMessage(".*databassystemet är redo att ta emot anslutningar.*", 2))
             start()
         }
     }

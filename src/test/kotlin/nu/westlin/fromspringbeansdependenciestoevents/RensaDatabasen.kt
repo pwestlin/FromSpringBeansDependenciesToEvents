@@ -2,6 +2,7 @@ package nu.westlin.fromspringbeansdependenciestoevents
 
 import org.springframework.jdbc.core.simple.JdbcClient
 
+@Suppress("SqlNoDataSourceInspection", "SqlSourceToSinkFlow")
 fun rensaDatabasen(jdbcClient: JdbcClient) {
     jdbcClient.sql(
         """

@@ -1,3 +1,5 @@
+@file:Suppress("JpaQueryApiInspection")
+
 package nu.westlin.fromspringbeansdependenciestoevents.order
 
 import nu.westlin.fromspringbeansdependenciestoevents.common.OrderCompletedEvent
