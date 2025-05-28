@@ -2,6 +2,7 @@ package nu.westlin.fromspringbeansdependenciestoevents
 
 import org.junit.jupiter.api.Test
 import org.springframework.modulith.core.ApplicationModules
+import org.springframework.modulith.docs.Documenter
 
 class ModulesTests {
 
@@ -11,7 +12,13 @@ class ModulesTests {
     fun `print modules`() {
         modules.forEach { println(it) }
     }
-    
+
+    @Test
+    fun `write documentation snippets`() {
+        Documenter(modules)
+            .writeDocumentation()
+    }
+
     @Test
     fun `verify modules`() {
         modules.verify()
