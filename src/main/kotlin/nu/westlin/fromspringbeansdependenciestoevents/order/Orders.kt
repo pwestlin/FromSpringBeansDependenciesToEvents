@@ -5,9 +5,13 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.jdbc.core.simple.JdbcClient
+import org.springframework.modulith.ApplicationModule
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+
+@ApplicationModule(allowedDependencies = ["common"])
+class OrdersModuleMetadata
 
 @Service
 class CompleteOrderService(

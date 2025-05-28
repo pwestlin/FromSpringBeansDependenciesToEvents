@@ -5,8 +5,10 @@ import nu.westlin.fromspringbeansdependenciestoevents.order.Order
 import org.springframework.beans.factory.getBean
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.modulith.Modulith
 
 @SpringBootApplication
+@Modulith
 class Application
 
 fun main(args: Array<String>) {
