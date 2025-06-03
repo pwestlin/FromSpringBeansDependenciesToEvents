@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Import
 import org.springframework.jdbc.core.simple.JdbcClient
 import org.springframework.modulith.test.ApplicationModuleTest
 import org.springframework.modulith.test.Scenario
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
 
 @Import(TestPostgresContainerConfig::class)
 @ApplicationModuleTest
@@ -17,6 +19,14 @@ class NotificationModuleTests(
     @Autowired private val notificationsRepository: JdbcNotificationsRepository,
     @Autowired private val jdbcClient: JdbcClient
 ) {
+
+    companion object {
+        @JvmStatic
+        @DynamicPropertySource
+        fun registerProperties(registry: DynamicPropertyRegistry) {
+            registry.add("notification.delay") { "PT0.1s" }
+        }
+    }
 
     @Test
     fun `handle order completed`(scenario: Scenario) {

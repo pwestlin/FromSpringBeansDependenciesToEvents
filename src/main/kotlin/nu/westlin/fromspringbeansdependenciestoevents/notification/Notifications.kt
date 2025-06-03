@@ -3,22 +3,26 @@ package nu.westlin.fromspringbeansdependenciestoevents.notification
 import nu.westlin.fromspringbeansdependenciestoevents.common.OrderCompletedEvent
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.context.event.EventListener
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.jdbc.core.simple.JdbcClient
 import org.springframework.modulith.ApplicationModule
+import org.springframework.modulith.events.ApplicationModuleListener
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
+import java.time.Duration
 
 @ApplicationModule(allowedDependencies = ["common"])
 class NotificationsModuleMetadata
 
 @Service
 class NotificationsService(
-    private val notificationsRepository: JdbcNotificationsRepository
+    private val notificationsRepository: JdbcNotificationsRepository,
+    @Value("\${notification.delay}") private val  notificationDelay: Duration
 ) {
     private fun sendOrderConfirmation(orderId: Long, userId: Long) {
         logger.info("Sending notification for $orderId")
+        // A slooow service
+        Thread.sleep(notificationDelay.toMillis())
         notificationsRepository.save(
             Notification(
                 orderId = orderId,
@@ -26,12 +30,20 @@ class NotificationsService(
                 message = "Order $orderId has been confirmed"
             )
         )
+        logger.info("Notification for $orderId sent")
     }
 
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    @EventListener(OrderCompletedEvent::class)
-    @Transactional
+    /*
+        @EventListener(OrderCompletedEvent::class)
+        @Transactional
+    */
+    /*
+        @Async
+        @TransactionalEventListener(OrderCompletedEvent::class)
+    */
+    @ApplicationModuleListener
     fun handleOrderCompletedEvent(event: OrderCompletedEvent) {
         logger.info("Handling $event")
         sendOrderConfirmation(event.orderId, event.userId)
@@ -70,3 +82,4 @@ class JdbcNotificationsRepository(
             .update()
     }
 }
+

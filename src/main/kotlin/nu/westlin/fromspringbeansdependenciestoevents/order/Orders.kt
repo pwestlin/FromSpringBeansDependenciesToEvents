@@ -11,9 +11,30 @@ import org.springframework.modulith.ApplicationModule
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @ApplicationModule(allowedDependencies = ["common"])
 class OrdersModuleMetadata
+
+@RestController
+@RequestMapping("/orders")
+class CompleteOrderController(
+    private val completeOrderService: CompleteOrderService
+) {
+
+    @PostMapping
+    fun completeOrder(@RequestBody completeOrderRequest: CompleteOrderRequest) {
+        completeOrderService.completeOrder(order = completeOrderRequest.order, userId = completeOrderRequest.userId)
+    }
+
+    data class CompleteOrderRequest(
+        val order: Order,
+        val userId: Long
+    )
+}
 
 @Service
 class CompleteOrderService(
@@ -55,3 +76,8 @@ class OrderRepository(
             .orElse(null)
     }
 }
+
+data class Order(
+    val id: Long,
+    val data: String
+)

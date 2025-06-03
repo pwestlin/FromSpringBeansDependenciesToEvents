@@ -1,5 +1,9 @@
 spring:
   application.name: FromSpringBeansDependenciesToEvents
+  modulith.events:
+    # Överkurs: Vad händer om man har flera instanser (ex. podar) av applikationen? :)
+    republish-outstanding-events-on-restart: true
+    jdbc.schema-initialization.enabled: true
 
 
   datasource:
@@ -21,3 +25,5 @@ logging:
   level:
     nu.westlin.fromspringbeansdependenciestoevents: DEBUG
     root: WARN
+
+notification.delay: PT10s
