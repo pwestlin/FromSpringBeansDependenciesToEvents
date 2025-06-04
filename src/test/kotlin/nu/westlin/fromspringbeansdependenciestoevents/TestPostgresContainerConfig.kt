@@ -2,7 +2,6 @@ package nu.westlin.fromspringbeansdependenciestoevents
 
 import org.springframework.boot.test.context.TestConfiguration
 
-// Utan denna fungerar testerna i IntelliJ men inte i Gradle...?
 @TestConfiguration
 class TestPostgresContainerConfig {
 
